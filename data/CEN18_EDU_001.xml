@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--NSI Web Service v8.18.2.0-->
+<message:GenericData xmlns:footer="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message/footer"
+    xmlns:generic="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/data/generic"
+    xmlns:message="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message"
+    xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace">
+    <message:Header>
+        <message:ID>IREF249567</message:ID>
+        <message:Test>true</message:Test>
+        <message:Prepared>2025-08-24T16:16:02</message:Prepared>
+        <message:Sender id="Design-DotStatSuite" />
+        <message:Structure structureID="STATSNZ_CEN18_EDU_001_1_0"
+            dimensionAtObservation="AllDimensions">
+            <common:StructureUsage>
+                <Ref agencyID="STATSNZ" id="CEN18_EDU_001" version="1.0" />
+            </common:StructureUsage>
+        </message:Structure>
+        <message:DataSetAction>Information</message:DataSetAction>
+        <message:DataSetID>CEN18_EDU_001</message:DataSetID>
+    </message:Header>
+    <message:DataSet action="Information" structureRef="STATSNZ_CEN18_EDU_001_1_0">
+        <generic:Obs>
+            <generic:ObsKey>
+                <generic:Value id="YEAR_CEN18_EDU_001" value="2006" />
+                <generic:Value id="AGE_CEN18_EDU_001" value="999999" />
+                <generic:Value id="AREA_CEN18_EDU_001" value="9999" />
+                <generic:Value id="ETHNICITY_CEN18_EDU_001" value="9999" />
+                <generic:Value id="HIGHESTQUAL_CEN18_EDU_001" value="9999" />
+                <generic:Value id="SEX_CEN18_EDU_001" value="9" />
+            </generic:ObsKey>
+            <generic:ObsValue value="3160371.0" />
+        </generic:Obs>
+        <generic:Obs>
+            <generic:ObsKey>
+                <generic:Value id="YEAR_CEN18_EDU_001" value="2013" />
+                <generic:Value id="AGE_CEN18_EDU_001" value="999999" />
+                <generic:Value id="AREA_CEN18_EDU_001" value="9999" />
+                <generic:Value id="ETHNICITY_CEN18_EDU_001" value="9999" />
+                <generic:Value id="HIGHESTQUAL_CEN18_EDU_001" value="9999" />
+                <generic:Value id="SEX_CEN18_EDU_001" value="9" />
+            </generic:ObsKey>
+            <generic:ObsValue value="3376419.0" />
+        </generic:Obs>
+        <generic:Obs>
+            <generic:ObsKey>
+                <generic:Value id="YEAR_CEN18_EDU_001" value="2018" />
+                <generic:Value id="AGE_CEN18_EDU_001" value="999999" />
+                <generic:Value id="AREA_CEN18_EDU_001" value="9999" />
+                <generic:Value id="ETHNICITY_CEN18_EDU_001" value="9999" />
+                <generic:Value id="HIGHESTQUAL_CEN18_EDU_001" value="9999" />
+                <generic:Value id="SEX_CEN18_EDU_001" value="9" />
+            </generic:ObsKey>
+            <generic:ObsValue value="3776355.0" />
+        </generic:Obs>
+        <generic:Obs>
+            <generic:ObsKey>
+                <generic:Value id="YEAR_CEN18_EDU_001" value="2006" />
+                <generic:Value id="AGE_CEN18_EDU_001" value="999999" />
+                <generic:Value id="AREA_CEN18_EDU_001" value="999999" />
+                <generic:Value id="ETHNICITY_CEN18_EDU_001" value="9999" />
+                <generic:Value id="HIGHESTQUAL_CEN18_EDU_001" value="9999" />
+                <generic:Value id="SEX_CEN18_EDU_001" value="9" />
+            </generic:ObsKey>
+            <generic:ObsValue value="3160371.0" />
+        </generic:Obs>
+        <generic:Obs>
+            <generic:ObsKey>
+                <generic:Value id="YEAR_CEN18_EDU_001" value="2013" />
+                <generic:Value id="AGE_CEN18_EDU_001" value="999999" />
+                <generic:Value id="AREA_CEN18_EDU_001" value="999999" />
+                <generic:Value id="ETHNICITY_CEN18_EDU_001" value="9999" />
+                <generic:Value id="HIGHESTQUAL_CEN18_EDU_001" value="9999" />
+                <generic:Value id="SEX_CEN18_EDU_001" value="9" />
+            </generic:ObsKey>
+            <generic:ObsValue value="3376419.0" />
+        </generic:Obs>
+        <generic:Obs>
+            <generic:ObsKey>
+                <generic:Value id="YEAR_CEN18_EDU_001" value="2018" />
+                <generic:Value id="AGE_CEN18_EDU_001" value="999999" />
+                <generic:Value id="AREA_CEN18_EDU_001" value="999999" />
+                <generic:Value id="ETHNICITY_CEN18_EDU_001" value="9999" />
+                <generic:Value id="HIGHESTQUAL_CEN18_EDU_001" value="9999" />
+                <generic:Value id="SEX_CEN18_EDU_001" value="9" />
+            </generic:ObsKey>
+            <generic:ObsValue value="3776355.0" />
+        </generic:Obs>
+        <generic:Obs>
+            <generic:ObsKey>
+                <generic:Value id="YEAR_CEN18_EDU_001" value="2006" />
+                <generic:Value id="AGE_CEN18_EDU_001" value="999999" />
+                <generic:Value id="AREA_CEN18_EDU_001" value="DHB9999" />
+                <generic:Value id="ETHNICITY_CEN18_EDU_001" value="9999" />
+                <generic:Value id="HIGHESTQUAL_CEN18_EDU_001" value="9999" />
+                <generic:Value id="SEX_CEN18_EDU_001" value="9" />
+            </generic:ObsKey>
+            <generic:ObsValue value="3160371.0" />
+        </generic:Obs>
+        <generic:Obs>
+            <generic:ObsKey>
+                <generic:Value id="YEAR_CEN18_EDU_001" value="2013" />
+                <generic:Value id="AGE_CEN18_EDU_001" value="999999" />
+                <generic:Value id="AREA_CEN18_EDU_001" value="DHB9999" />
+                <generic:Value id="ETHNICITY_CEN18_EDU_001" value="9999" />
+                <generic:Value id="HIGHESTQUAL_CEN18_EDU_001" value="9999" />
+                <generic:Value id="SEX_CEN18_EDU_001" value="9" />
+            </generic:ObsKey>
+            <generic:ObsValue value="3376419.0" />
+        </generic:Obs>
+        <generic:Obs>
+            <generic:ObsKey>
+                <generic:Value id="YEAR_CEN18_EDU_001" value="2018" />
+                <generic:Value id="AGE_CEN18_EDU_001" value="999999" />
+                <generic:Value id="AREA_CEN18_EDU_001" value="DHB9999" />
+                <generic:Value id="ETHNICITY_CEN18_EDU_001" value="9999" />
+                <generic:Value id="HIGHESTQUAL_CEN18_EDU_001" value="9999" />
+                <generic:Value id="SEX_CEN18_EDU_001" value="9" />
+            </generic:ObsKey>
+            <generic:ObsValue value="3776355.0" />
+        </generic:Obs>
+    </message:DataSet>
+</message:GenericData>
