@@ -132,7 +132,7 @@ FIXME: $pathToGenericStructure should be replaced with an HTTP URI ??? Is this i
 
                 <xsl:apply-templates select="common:Name"/>
 
-                <xsl:apply-templates select="structure:Description"/>
+                <xsl:apply-templates select="common:Description"/>
 
                 <xsl:call-template name="structureComponents">
                     <xsl:with-param name="structureData" select="$structureData" tunnel="yes"/>
@@ -399,7 +399,7 @@ XXX: Is it possible to have a Concept version that's different than the version 
 
             <xsl:apply-templates select="common:Name"/>
 
-            <xsl:apply-templates select="structure:Description"/>
+            <xsl:apply-templates select="common:Description"/>
 
 <!--
 TODO:
@@ -480,12 +480,12 @@ structure:textFormat
 XXX: Difference between SDMX 2.0 and SDMX 2.1
 -->
                                 <xsl:choose>
-                                    <xsl:when test="common:Name and structure:Description">
+                                    <xsl:when test="common:Name and common:Description">
                                         <xsl:apply-templates select="common:Name"/>
-                                        <xsl:apply-templates select="structure:Description"/>
+                                        <xsl:apply-templates select="common:Description"/>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <xsl:for-each select="structure:Description">
+                                        <xsl:for-each select="common:Description">
                                             <skos:prefLabel><xsl:call-template name="langTextNode"/></skos:prefLabel>
                                         </xsl:for-each>
                                     </xsl:otherwise>
@@ -524,7 +524,7 @@ XXX: Difference between SDMX 2.0 and SDMX 2.1
 
                 <skos:notation><xsl:value-of select="@id"/></skos:notation>
                 <xsl:apply-templates select="common:Name"/>
-                <xsl:apply-templates select="structure:Description"/>
+                <xsl:apply-templates select="common:Description"/>
 
 
                 <xsl:for-each select="structure:CodelistRef">
@@ -565,7 +565,7 @@ XXX: Difference between SDMX 2.0 and SDMX 2.1
                             <skos:notation><xsl:value-of select="@id"/></skos:notation>
 
                             <xsl:apply-templates select="common:Name"/>
-                            <xsl:apply-templates select="structure:Description"/>
+                            <xsl:apply-templates select="common:Description"/>
 
                             <xsl:apply-templates select="@urn"/>
                             <xsl:apply-templates select="@validFrom"/>

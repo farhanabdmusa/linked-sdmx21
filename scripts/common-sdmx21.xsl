@@ -101,7 +101,7 @@
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="structure:Description">
+    <xsl:template match="common:Description">
         <skos:definition><xsl:call-template name="langTextNode"/></skos:definition>
     </xsl:template>
 
