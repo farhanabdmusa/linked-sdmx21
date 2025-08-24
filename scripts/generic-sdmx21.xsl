@@ -406,7 +406,7 @@ TODO:
 structure:textFormat
 -->
 
-            <xsl:apply-templates select="structure:Annotations/common:Annotation"/>
+            <xsl:apply-templates select="common:Annotations/common:Annotation"/>
         </rdf:Description>
     </xsl:template>
 
@@ -491,7 +491,7 @@ XXX: Difference between SDMX 2.0 and SDMX 2.1
                                     </xsl:otherwise>
                                 </xsl:choose>
 
-                                <xsl:apply-templates select="structure:Annotations/common:Annotation"/>
+                                <xsl:apply-templates select="common:Annotations/common:Annotation"/>
                             </rdf:Description>
                         </skos:hasTopConcept>
                     </xsl:for-each>

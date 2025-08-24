@@ -109,7 +109,7 @@
         <owl:versionInfo><xsl:value-of select="."/></owl:versionInfo>
     </xsl:template>
 
-    <xsl:template match="structure:Annotations/common:Annotation">
+    <xsl:template match="common:Annotations/common:Annotation">
         <xsl:variable name="AnnotationType" select="normalize-space(common:AnnotationType)"/>
         <xsl:variable name="cIAT" select="$ConfigInterlinkAnnotationTypes[rdf:type = $AnnotationType]"/>
 
