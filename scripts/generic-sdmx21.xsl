@@ -34,7 +34,7 @@
     exclude-result-prefixes="xsl fn structure message generic common"
     >
 
-    <xsl:import href="common.xsl"/>
+    <xsl:import href="common-sdmx21.xsl"/>
 
     <xsl:output encoding="utf-8" indent="yes" method="xml" omit-xml-declaration="no"/>
 
