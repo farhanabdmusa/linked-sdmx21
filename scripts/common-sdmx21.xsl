@@ -95,7 +95,7 @@
         <xsl:value-of select="normalize-space(.)"/>
     </xsl:template>
 
-    <xsl:template match="structure:Name">
+    <xsl:template match="common:Name">
         <xsl:if test="normalize-space(.) != ''">
             <skos:prefLabel><xsl:call-template name="langTextNode"/></skos:prefLabel>
         </xsl:if>
@@ -164,7 +164,7 @@
         <xsl:param name="Concept"/>
 
         <xsl:for-each select="$Concept">
-            <xsl:apply-templates select="structure:Name"/>
+            <xsl:apply-templates select="common:Name"/>
         </xsl:for-each>
     </xsl:template>
 

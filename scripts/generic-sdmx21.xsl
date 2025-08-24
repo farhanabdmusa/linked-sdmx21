@@ -130,7 +130,7 @@ FIXME: $pathToGenericStructure should be replaced with an HTTP URI ??? Is this i
                 <xsl:apply-templates select="@validFrom"/>
                 <xsl:apply-templates select="@validTo"/>
 
-                <xsl:apply-templates select="structure:Name"/>
+                <xsl:apply-templates select="common:Name"/>
 
                 <xsl:apply-templates select="structure:Description"/>
 
@@ -350,7 +350,7 @@ SDMX-ML actually differentiates ConceptScheme from CodeList. Add sdmx:ConceptSch
 
             <skos:notation><xsl:value-of select="@id"/></skos:notation>
 
-            <xsl:apply-templates select="structure:Name"/>
+            <xsl:apply-templates select="common:Name"/>
 
             <xsl:for-each select="structure:Concept">
                 <skos:hasTopConcept>
@@ -397,7 +397,7 @@ XXX: Is it possible to have a Concept version that's different than the version 
 
             <skos:notation><xsl:value-of select="@id"/></skos:notation>
 
-            <xsl:apply-templates select="structure:Name"/>
+            <xsl:apply-templates select="common:Name"/>
 
             <xsl:apply-templates select="structure:Description"/>
 
@@ -441,7 +441,7 @@ structure:textFormat
                             <rdf:type rdf:resource="{$owl}Class"/>
                             <rdfs:subClassOf rdf:resource="{$skos}Concept"/>
                             <rdfs:seeAlso rdf:resource="{$codeListURI}"/>
-                            <xsl:apply-templates select="structure:Name"/>
+                            <xsl:apply-templates select="common:Name"/>
                         </rdf:Description>
                     </rdfs:seeAlso>
 
@@ -451,7 +451,7 @@ structure:textFormat
                     <xsl:apply-templates select="@version"/>
 
                     <skos:notation><xsl:value-of select="$id"/></skos:notation>
-                    <xsl:apply-templates select="structure:Name"/>
+                    <xsl:apply-templates select="common:Name"/>
 
                     <xsl:for-each select="structure:Code">
                         <xsl:variable name="codeURI" select="concat($codeListURI, $uriThingSeparator, @value)"/>
@@ -480,8 +480,8 @@ structure:textFormat
 XXX: Difference between SDMX 2.0 and SDMX 2.1
 -->
                                 <xsl:choose>
-                                    <xsl:when test="structure:Name and structure:Description">
-                                        <xsl:apply-templates select="structure:Name"/>
+                                    <xsl:when test="common:Name and structure:Description">
+                                        <xsl:apply-templates select="common:Name"/>
                                         <xsl:apply-templates select="structure:Description"/>
                                     </xsl:when>
                                     <xsl:otherwise>
@@ -523,7 +523,7 @@ XXX: Difference between SDMX 2.0 and SDMX 2.1
                 <xsl:apply-templates select="@version"/>
 
                 <skos:notation><xsl:value-of select="@id"/></skos:notation>
-                <xsl:apply-templates select="structure:Name"/>
+                <xsl:apply-templates select="common:Name"/>
                 <xsl:apply-templates select="structure:Description"/>
 
 
@@ -564,7 +564,7 @@ XXX: Difference between SDMX 2.0 and SDMX 2.1
 
                             <skos:notation><xsl:value-of select="@id"/></skos:notation>
 
-                            <xsl:apply-templates select="structure:Name"/>
+                            <xsl:apply-templates select="common:Name"/>
                             <xsl:apply-templates select="structure:Description"/>
 
                             <xsl:apply-templates select="@urn"/>
@@ -806,7 +806,7 @@ XXX: Fallback: KeyFamilyRef may not exist. Tries the DataSet id as the KeyFamily
                             </xsl:for-each>
                         </xsl:when>
                         <xsl:when test="$datasetID != '' and $dataflowStructure != ''">
-                            <dcterms:title><xsl:value-of select="$dataflowStructure/Dataflows/structure:Dataflow[@id = $datasetID]/structure:Name/text()"/></dcterms:title>
+                            <dcterms:title><xsl:value-of select="$dataflowStructure/Dataflows/structure:Dataflow[@id = $datasetID]/common:Name/text()"/></dcterms:title>
                         </xsl:when>
                         <xsl:otherwise>
                         </xsl:otherwise>
