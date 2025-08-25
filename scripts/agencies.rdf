@@ -68,4 +68,8 @@
   <rdf:Description rdf:about="http://wb.270a.info/">
     <skos:notation>WB</skos:notation>
   </rdf:Description>
+  <rdf:Description rdf:about="http://nz.270a.info/">
+    <skos:notation>NZ</skos:notation>
+    <skos:notation>STATSNZ</skos:notation>
+  </rdf:Description>
 </rdf:RDF>
