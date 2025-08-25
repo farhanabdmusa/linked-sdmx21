@@ -513,6 +513,7 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
     <xsl:function name="fn:getCodeListAgencyID">
         <xsl:param name="doc"/>
         <xsl:param name="node"/>
+        <xsl:param name="codelistID"/>
 
         <xsl:variable name="CodeListAgencyID">
             <xsl:choose>
@@ -521,7 +522,7 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
                 </xsl:when>
                 <!-- Best bet if Concept is in the same document -->
                 <xsl:otherwise>
-                    <xsl:variable name="CodeList" select="$doc/*[local-name() = 'CodeLists']//structure:CodeList[@id = $node/@codelist]"/>
+                    <xsl:variable name="CodeList" select="$doc/*[local-name() = 'Codelists']//structure:Codelist[@id = $codelistID]"/>
 
                     <xsl:if test="count($CodeList) = 1">
                         <xsl:value-of select="$CodeList/@agencyID"/>
@@ -677,7 +678,7 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
                                 <xsl:value-of select="$codelist"/>
                             </xsl:attribute>
 
-                            <xsl:variable name="codelistAgency" select="fn:getCodeListAgencyID($genericStructure, .)"/>
+                            <xsl:variable name="codelistAgency" select="fn:getCodeListAgencyID($genericStructure, ., $codelist)"/>
 
                             <xsl:attribute name="codelistAgency">
                                 <xsl:value-of select="$codelistAgency"/>
