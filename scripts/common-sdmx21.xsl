@@ -591,7 +591,7 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
                             </xsl:attribute>
 
                             <xsl:attribute name="conceptRole">
-                                <xsl:value-of select="fn:getConceptRole(.)"/>
+                                <xsl:value-of select="fn:getConceptRole(., $componentType)"/>
                             </xsl:attribute>
 
                             <xsl:variable name="codelist" select="../../structure:LocalRepresentation/structure:Enumeration/*[local-name()='Ref' and @package='codelist']/@id"/>
@@ -746,12 +746,13 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
 
     <xsl:function name="fn:getConceptRole">
         <xsl:param name="node"/>
+        <xsl:param name="componentType" />
 
         <xsl:choose>
-            <xsl:when test="$node/local-name() = 'PrimaryMeasure'">
+            <xsl:when test="$componentType = 'PrimaryMeasure'">
                 <xsl:text>PrimaryMeasureRole</xsl:text>
             </xsl:when>
-            <xsl:when test="$node/local-name() = 'TimeDimension' or $node/@isTimeFormat">
+            <xsl:when test="$componentType = 'TimeDimension' or $node/@isTimeFormat">
                 <xsl:text>TimeRole</xsl:text>
             </xsl:when>
             <xsl:when test="$node/@isFrequencyDimension = 'true' or $node/@isFrequencyAttribute = 'true'">

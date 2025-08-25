@@ -186,7 +186,7 @@ Should we give any special treatment to TimeDimension even though qb currently d
                                     <rdf:type rdf:resource="{$rdf}Property"/>
                                     <qb:concept>
                                         <rdf:Description rdf:about="{$conceptURI}">
-                                            <rdf:type rdf:resource="{$sdmx}{fn:getConceptRole(.)}"></rdf:type>
+                                            <rdf:type rdf:resource="{$sdmx}{fn:getConceptRole(., @componentType)}"></rdf:type>
                                         </rdf:Description>
                                     </qb:concept>
                                     <xsl:call-template name="qbCodeListrdfsRange">
@@ -221,7 +221,7 @@ Consider what to do with optional <TextFormat textType="Double"/> or whatever. P
                                     <rdf:type rdf:resource="{$rdf}Property"/>
                                     <qb:concept>
                                         <rdf:Description rdf:about="{$conceptURI}">
-                                            <rdf:type rdf:resource="{$sdmx}{fn:getConceptRole(.)}"></rdf:type>
+                                            <rdf:type rdf:resource="{$sdmx}{fn:getConceptRole(., @componentType)}"></rdf:type>
                                         </rdf:Description>
                                     </qb:concept>
                                     <xsl:call-template name="ConceptLabels">
@@ -247,7 +247,7 @@ Multiple measures
                                     <rdf:type rdf:resource="{$rdf}Property"/>
                                     <qb:concept>
                                         <rdf:Description rdf:about="{$conceptURI}">
-                                            <rdf:type rdf:resource="{$sdmx}{fn:getConceptRole(.)}"></rdf:type>
+                                            <rdf:type rdf:resource="{$sdmx}{fn:getConceptRole(., @componentType)}"></rdf:type>
                                         </rdf:Description>
                                     </qb:concept>
                                     <xsl:call-template name="qbCodeListrdfsRange">
