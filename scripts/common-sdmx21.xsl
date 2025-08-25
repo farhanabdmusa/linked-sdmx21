@@ -464,85 +464,6 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
         <xsl:value-of select="$Config/rdf:Description/rdf:value/rdf:Description[rdfs:label = $label]/rdf:value"/>
     </xsl:function>
 
-    <xsl:function name="fn:getConceptAgencyID">
-        <xsl:param name="doc"/>
-        <xsl:param name="node"/>
-
-        <xsl:variable name="ConceptAgencyID">
-            <xsl:choose>
-                <xsl:when test="$node/@conceptAgency">
-                    <xsl:value-of select="$node/@conceptAgency"/>
-                </xsl:when>
-                <xsl:when test="$node/@conceptSchemeAgency">
-                    <xsl:value-of select="$node/@conceptSchemeAgency"/>
-                </xsl:when>
-                <xsl:when test="$node/@codelistAgency">
-                    <xsl:value-of select="$node/@codelistAgency"/>
-                </xsl:when>
-                <!-- Best bet if Concept is in the same document -->
-                <xsl:otherwise>
-                    <xsl:variable name="Concept" select="$doc/*[local-name() = 'Concepts']//structure:Concept[@id = $node/@conceptRef]"/>
-
-                    <xsl:if test="count($Concept) = 1">
-                        <xsl:choose>
-                            <xsl:when test="$Concept/@agencyID">
-                                <xsl:value-of select="$Concept/@agencyID"/>
-                            </xsl:when>
-                            <xsl:when test="$Concept/../structure:ConceptScheme[@agencyID]/@agencyID">
-                                <xsl:value-of select="$Concept/../structure:ConceptScheme[@agencyID]/@agencyID"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:if>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-
-        <xsl:choose>
-            <xsl:when test="$ConceptAgencyID != ''">
-                <xsl:value-of select="$ConceptAgencyID"/>
-            </xsl:when>
-            <!-- Fallback -->
-            <xsl:otherwise>
-                <xsl:value-of select="$doc/*[local-name() = 'KeyFamilies']/structure:KeyFamily[1]/@agencyID"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:function>
-
-    <xsl:function name="fn:getCodeListAgencyID">
-        <xsl:param name="doc"/>
-        <xsl:param name="node"/>
-        <xsl:param name="codelistID"/>
-
-        <xsl:variable name="CodeListAgencyID">
-            <xsl:choose>
-                <xsl:when test="$node/@codelistAgency">
-                    <xsl:value-of select="$node/@codelistAgency"/>
-                </xsl:when>
-                <!-- Best bet if Concept is in the same document -->
-                <xsl:otherwise>
-                    <xsl:variable name="CodeList" select="$doc/*[local-name() = 'Codelists']//structure:Codelist[@id = $codelistID]"/>
-
-                    <xsl:if test="count($CodeList) = 1">
-                        <xsl:value-of select="$CodeList/@agencyID"/>
-                    </xsl:if>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-
-        <xsl:choose>
-            <xsl:when test="$CodeListAgencyID != ''">
-                <xsl:value-of select="$CodeListAgencyID"/>
-            </xsl:when>
-            <!-- Fallback -->
-            <xsl:otherwise>
-                <xsl:value-of select="$doc/*[local-name() = 'KeyFamilies']/structure:KeyFamily[1]/@agencyID"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:function>
-
-
     <xsl:function name="fn:getConceptVersion">
         <xsl:param name="doc"/>
         <xsl:param name="node"/>
@@ -677,26 +598,21 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
                             <xsl:attribute name="codelist">
                                 <xsl:value-of select="$codelist"/>
                             </xsl:attribute>
+                            
+                            <xsl:variable name="codelistNode" select="$genericStructure/*[local-name() = 'Codelists']//structure:Codelist[@id = $codelist]"/>
 
-                            <xsl:variable name="codelistAgency" select="fn:getCodeListAgencyID($genericStructure, ., $codelist)"/>
+                            <xsl:variable name="codelistAgency" select="$codelistNode/@agencyID"/>
 
                             <xsl:attribute name="codelistAgency">
                                 <xsl:value-of select="$codelistAgency"/>
                             </xsl:attribute>
 
                             <xsl:attribute name="codelistVersion">
-                                <xsl:choose>
-                                    <xsl:when test="@codelistVersion">
-                                        <xsl:value-of select="@codelistVersion"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:value-of select="fn:getVersion($genericStructure/*[local-name() = 'CodeLists']//structure:CodeList[@id = $codelist and @agencyID = $codelistAgency]/@version)"/>
-                                    </xsl:otherwise>
-                                </xsl:choose>
+                                <xsl:value-of select="$codelistNode/@version"/>
                             </xsl:attribute>
 
                             <xsl:variable name="conceptAgency">
-                                <xsl:value-of select="fn:getConceptAgencyID($genericStructure, .)"/>
+                                <xsl:value-of select="@agencyID"/>
                             </xsl:variable>
                             <xsl:attribute name="conceptAgency">
                                 <xsl:value-of select="$conceptAgency"/>
