@@ -27,6 +27,7 @@
     <xsl:output encoding="utf-8" indent="yes" method="xml" omit-xml-declaration="no"/>
 
     <xsl:param name="pathToConfig"/>
+    <xsl:param name="debug"/>
 
     <xsl:variable name="pathToSDMXCode"><xsl:text>./sdmx-code.rdf</xsl:text></xsl:variable>
     <xsl:variable name="SDMXCode" select="document($pathToSDMXCode)/rdf:RDF"/>
@@ -605,10 +606,33 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
 
     <xsl:function name="fn:createStructureData">
         <rdf:RDF>
-            <xsl:for-each select="$genericStructure/*[local-name() = 'KeyFamilies']/structure:KeyFamily">
+            <xsl:for-each select="$genericStructure/*[local-name() = 'DataStructures']/structure:DataStructure">
                 <xsl:variable name="KeyFamilyRef" select="@id"/>
 
-                <xsl:variable name="concepts" select="structure:Components/*[@conceptRef]"/>
+                <xsl:variable name="concepts" select="structure:DataStructureComponents/*/*/structure:ConceptIdentity/*[local-name()='Ref' and @package='conceptscheme']"/>
+
+<xsl:if test="$debug = 'true'">
+<xsl:message>Jumlah DataStructureComponents: 
+<xsl:value-of select="count(structure:DataStructureComponents)"/>
+</xsl:message>
+
+<xsl:message>Jumlah Ref ditemukan: 
+<xsl:value-of select="count(structure:DataStructureComponents/*/*/structure:ConceptIdentity/*[local-name()='Ref' and @package='conceptscheme'])"/>
+</xsl:message>
+<xsl:message>
+🚀 START LIST CONCEPT 🚀
+<xsl:for-each select="$concepts">
+    <xsl:value-of select="local-name()"/>
+    <xsl:for-each select="@*">
+<xsl:text>
+    </xsl:text><xsl:value-of select="local-name()"/><xsl:text> </xsl:text><xsl:value-of select="."/>
+    </xsl:for-each>
+<xsl:text>
+</xsl:text>
+</xsl:for-each>
+🚀 END LIST CONCEPT 🚀
+</xsl:message>
+</xsl:if>
 
                 <xsl:element name="{$KeyFamilyRef}">
                     <xsl:variable name="agencyID" select="@agencyID"/>
@@ -632,7 +656,7 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
                     </xsl:attribute>
 
                     <xsl:for-each select="$concepts">
-                        <xsl:variable name="conceptRef" select="@conceptRef"/>
+                        <xsl:variable name="conceptRef" select="@id"/>
 
                         <xsl:element name="{$conceptRef}">
         <!--                    <xsl:variable name="Component" select="$genericStructure/*[local-name() = 'KeyFamilies']/structure:KeyFamily[@id = $KeyFamilyRef]/structure:Components/*[@conceptRef = $conceptRef][1]"/>-->
@@ -648,7 +672,7 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
                                 <xsl:value-of select="fn:getConceptRole(.)"/>
                             </xsl:attribute>
 
-                            <xsl:variable name="codelist" select="@codelist"/>
+                            <xsl:variable name="codelist" select="../../structure:LocalRepresentation/structure:Enumeration/*[local-name()='Ref' and @package='codelist']/@id"/>
                             <xsl:attribute name="codelist">
                                 <xsl:value-of select="$codelist"/>
                             </xsl:attribute>
