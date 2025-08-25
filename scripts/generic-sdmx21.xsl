@@ -68,7 +68,8 @@
 </xsl:message>
 </xsl:if>
 
-            <xsl:for-each select="Structure | RegistryInterface/QueryStructureResponse">
+            <xsl:for-each select="*[local-name() = 'Structure'] 
+        | *[local-name() = 'RegistryInterface']/*[local-name() = 'QueryStructureResponse']">
                 <xsl:call-template name="KeyFamily"/>
 
                 <xsl:call-template name="Concepts"/>
