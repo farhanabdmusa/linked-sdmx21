@@ -618,7 +618,7 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
                                 <xsl:value-of select="$conceptAgency"/>
                             </xsl:attribute>
 
-                            <xsl:variable name="conceptSchemeRef" select="@conceptSchemeRef"/>
+                            <xsl:variable name="conceptSchemeRef" select="@maintainableParentID"/>
                             <xsl:variable name="conceptScheme">
                                 <xsl:choose>
                                     <xsl:when test="$conceptSchemeRef != ''">
