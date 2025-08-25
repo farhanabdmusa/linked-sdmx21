@@ -70,12 +70,9 @@
 
             <xsl:for-each select="*[local-name() = 'Structure'] 
         | *[local-name() = 'RegistryInterface']/*[local-name() = 'QueryStructureResponse']">
-                <xsl:call-template name="KeyFamily"/>
-
+                <xsl:call-template name="DataStructures"/>
                 <xsl:call-template name="Concepts"/>
-
                 <xsl:call-template name="CodeLists"/>
-
                 <xsl:call-template name="HierarchicalCodelists"/>
             </xsl:for-each>
 
@@ -83,63 +80,6 @@
 
             <xsl:call-template name="provenanceInit"/>
         </rdf:RDF>
-    </xsl:template>
-
-    <xsl:template name="KeyFamily">
-        <xsl:for-each select="*[local-name() = 'KeyFamilies']/structure:KeyFamily">
-            <xsl:variable name="id" select="@id"/>
-            <xsl:variable name="version" select="fn:getVersion(@version)"/>
-            <xsl:variable name="agencyID" select="@agencyID"/>
-
-            <xsl:variable name="structureData" select="$StructureData/*[local-name() = $id and @agencyID = $agencyID and @version = $version]"/>
-
-            <xsl:variable name="structureURI" select="$structureData/@structureURI"/>
-
-<!--
-FIXME: $pathToGenericStructure should be replaced with an HTTP URI ??? Is this irrelevant now?
--->
-            <xsl:if test="$useProvenance = 'true'">
-                <xsl:call-template name="provenance">
-                    <xsl:with-param name="provUsedA" select="resolve-uri(tokenize(base-uri(), '/')[last()], $xmlDocumentBaseUri)"/>
-                    <xsl:with-param name="provGenerated" select="$structureURI"/>
-                    <xsl:with-param name="entityID" select="$id"/>
-                </xsl:call-template>
-            </xsl:if>
-
-            <rdf:Description rdf:about="{$structureURI}">
-                <rdf:type rdf:resource="{$sdmx}DataStructureDefinition"/>
-                <rdf:type rdf:resource="{$qb}DataStructureDefinition"/>
-
-<!-- TODO:
-* Review these properties. Some are close enough to existing SDMX, some I made them up - they should be added to sdmx* vocabs perhpas, so, consider creating sdmx-concept URIs for isFinal/isExternalReference/validFrom/validTo ...?
--->
-                <sdmx-concept:dsi><xsl:value-of select="$id"/></sdmx-concept:dsi>
-
-                <xsl:if test="$agencyID != ''">
-                    <sdmx-concept:mAgency><xsl:value-of select="$agencyID"/></sdmx-concept:mAgency>
-                </xsl:if>
-
-                <xsl:apply-templates select="@version"/>
-
-                <xsl:apply-templates select="@uri"/>
-                <xsl:apply-templates select="@urn"/>
-
-                <xsl:if test="@isFinal">
-                    <sdmx-concept:isFinal rdf:datatype="{$xsd}boolean"><xsl:value-of select="@isFinal"/></sdmx-concept:isFinal>
-                </xsl:if>
-
-                <xsl:apply-templates select="@validFrom"/>
-                <xsl:apply-templates select="@validTo"/>
-
-                <xsl:apply-templates select="common:Name"/>
-
-                <xsl:apply-templates select="common:Description"/>
-
-                <xsl:call-template name="structureComponents">
-                    <xsl:with-param name="structureData" select="$structureData" tunnel="yes"/>
-                </xsl:call-template>
-            </rdf:Description>
-        </xsl:for-each>
     </xsl:template>
 
     <xsl:template name="structureComponents">
@@ -1232,5 +1172,63 @@ This is a one time retrieval but perhaps not necessary for the observations. Rev
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:element>
+    </xsl:template>
+
+    <!-- SDMX 2.1 -->
+    <xsl:template name="DataStructures">
+        <xsl:for-each select="*[local-name() = 'Structures']/*[local-name() = 'DataStructures']/*[local-name() = 'DataStructure']">
+            <xsl:variable name="id" select="@id"/>
+            <xsl:variable name="version" select="fn:getVersion(@version)"/>
+            <xsl:variable name="agencyID" select="@agencyID"/>
+
+            <xsl:variable name="structureData" select="$StructureData/*[local-name() = $id and @agencyID = $agencyID and @version = $version]"/>
+
+            <xsl:variable name="structureURI" select="$structureData/@structureURI"/>
+
+<!--
+FIXME: $pathToGenericStructure should be replaced with an HTTP URI ??? Is this irrelevant now?
+-->
+            <xsl:if test="$useProvenance = 'true'">
+                <xsl:call-template name="provenance">
+                    <xsl:with-param name="provUsedA" select="resolve-uri(tokenize(base-uri(), '/')[last()], $xmlDocumentBaseUri)"/>
+                    <xsl:with-param name="provGenerated" select="$structureURI"/>
+                    <xsl:with-param name="entityID" select="$id"/>
+                </xsl:call-template>
+            </xsl:if>
+
+            <rdf:Description rdf:about="{$structureURI}">
+                <rdf:type rdf:resource="{$sdmx}DataStructureDefinition"/>
+                <rdf:type rdf:resource="{$qb}DataStructureDefinition"/>
+
+<!-- TODO:
+* Review these properties. Some are close enough to existing SDMX, some I made them up - they should be added to sdmx* vocabs perhpas, so, consider creating sdmx-concept URIs for isFinal/isExternalReference/validFrom/validTo ...?
+-->
+                <sdmx-concept:dsi><xsl:value-of select="$id"/></sdmx-concept:dsi>
+
+                <xsl:if test="$agencyID != ''">
+                    <sdmx-concept:mAgency><xsl:value-of select="$agencyID"/></sdmx-concept:mAgency>
+                </xsl:if>
+
+                <xsl:apply-templates select="@version"/>
+
+                <xsl:apply-templates select="@uri"/>
+                <xsl:apply-templates select="@urn"/>
+
+                <xsl:if test="@isFinal">
+                    <sdmx-concept:isFinal rdf:datatype="{$xsd}boolean"><xsl:value-of select="@isFinal"/></sdmx-concept:isFinal>
+                </xsl:if>
+
+                <xsl:apply-templates select="@validFrom"/>
+                <xsl:apply-templates select="@validTo"/>
+
+                <xsl:apply-templates select="common:Name"/>
+
+                <xsl:apply-templates select="common:Description"/>
+
+                <xsl:call-template name="structureComponents">
+                    <xsl:with-param name="structureData" select="$structureData" tunnel="yes"/>
+                </xsl:call-template>
+            </rdf:Description>
+        </xsl:for-each>
     </xsl:template>
 </xsl:stylesheet>
