@@ -43,7 +43,7 @@
     <xsl:param name="dataSetID"/>
     <xsl:param name="pathToDataflow"/>
     <xsl:param name="debug"/>
-    <xsl:variable name="genericStructure" select="document($pathToGenericStructure)/Structure | document($pathToGenericStructure)/RegistryInterface/QueryStructureResponse"/>
+    <xsl:variable name="genericStructure" select="document($pathToGenericStructure)/*[local-name()='Structure']/*[local-name()='Structures'] | document($pathToGenericStructure)/RegistryInterface/QueryStructureResponse"/>
     <xsl:variable name="dataflowStructure" select="document($pathToDataflow)/Structure"/>
 
     <xsl:variable name="StructureData" select="fn:createStructureData()"/>
