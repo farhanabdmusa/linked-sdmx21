@@ -584,7 +584,7 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
         <!--                    <xsl:variable name="Component" select="$genericStructure/*[local-name() = 'KeyFamilies']/structure:KeyFamily[@id = $KeyFamilyRef]/structure:Components/*[@conceptRef = $conceptRef][1]"/>-->
 
                             <xsl:variable name="componentType">
-                                <xsl:value-of select="local-name()"/>
+                                <xsl:value-of select="../../local-name()"/>
                             </xsl:variable>
                             <xsl:attribute name="componentType">
                                 <xsl:value-of select="$componentType"/>
@@ -675,10 +675,9 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
                                 <xsl:value-of select="concat(substring($propertyType, 1, 1), '-', substring($nodeId, string-length($nodeId)-3))"/>
                             </xsl:attribute>
 
-
                             <xsl:variable name="componentBase" select="fn:getComponentBase($propertyType, $conceptAgency)"/>
                             <xsl:attribute name="componentBase">
-                                <xsl:value-of select="fn:getComponentBase($propertyType, $conceptAgency)"/>
+                                <xsl:value-of select="$componentBase"/>
                             </xsl:attribute>
 
                             <xsl:variable name="propertyNamespace">
