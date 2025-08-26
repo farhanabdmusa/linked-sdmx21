@@ -725,13 +725,13 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
         <xsl:choose>
             <xsl:when test="$useSeparateProperties = 'true'">
                 <xsl:choose>
-                    <xsl:when test="$componentType = 'Dimension' or $componentType = 'TimeDimension'">
+                    <xsl:when test="$componentType = 'Dimension' or $componentType = 'TimeDimension' or $componentType = 'DimensionList'">
                         <xsl:value-of select="'dimension'"/>
                     </xsl:when>
-                    <xsl:when test="$componentType = 'PrimaryMeasure'">
+                    <xsl:when test="$componentType = 'PrimaryMeasure' or $componentType = 'MeasureList'">
                         <xsl:value-of select="'measure'"/>
                     </xsl:when>
-                    <xsl:when test="$componentType = 'Attribute'">
+                    <xsl:when test="$componentType = 'Attribute' or $componentType = 'AttributeList'">
                         <xsl:value-of select="'attribute'"/>
                     </xsl:when>
                     <xsl:otherwise>
