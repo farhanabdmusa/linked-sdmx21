@@ -85,13 +85,13 @@
     <xsl:template name="structureComponents">
         <xsl:param name="structureData" tunnel="yes"/>
 
-        <xsl:for-each select="structure:Components/*[local-name() != 'Group']">
+        <xsl:for-each select="structure:DataStructureComponents/*/*">
             <qb:component>
                 <xsl:variable name="componentType" select="local-name()"/>
 
                 <xsl:variable name="propertyType" select="fn:getPropertyType(local-name())"/>
 
-                <xsl:variable name="conceptRef" select="@conceptRef"/>
+                <xsl:variable name="conceptRef" select="structure:ConceptIdentity/*[@package='conceptscheme']/@id"/>
 
                 <xsl:variable name="C" select="$structureData/*[name() = $conceptRef and @componentType = $componentType]"/>
 
@@ -108,6 +108,22 @@
                 <xsl:variable name="componentProperty" select="$C/@componentProperty"/>
 
                 <xsl:variable name="Concept" select="//*[local-name() = 'Concepts']//structure:Concept[@id = $conceptRef and (@agencyID = $conceptAgency or ../@agencyID = $conceptAgency) and (@version = $conceptVersion or ../@version = $conceptVersion or $conceptVersion = '1.0')]"/>
+<xsl:if test="$debug = 'true'">
+<xsl:message>
+componentType: <xsl:value-of select="$componentType"/>
+propertyType: <xsl:value-of select="$propertyType"/>
+conceptRef: <xsl:value-of select="$conceptRef"/>
+C: <xsl:value-of select="$C"/>
+conceptPath: <xsl:value-of select="$conceptPath"/>
+conceptURI: <xsl:value-of select="$conceptURI"/>
+conceptVersion: <xsl:value-of select="$conceptVersion"/>
+conceptScheme: <xsl:value-of select="$conceptScheme"/>
+conceptAgency: <xsl:value-of select="$conceptAgency"/>
+componentProperty: <xsl:value-of select="$componentProperty"/>
+Concept: <xsl:value-of select="$Concept"/>
+qb: <xsl:value-of select="$qb"/>
+</xsl:message>
+</xsl:if>
 
                 <rdf:Description rdf:about="{$structureData/@agencyBase}{$component}{$structureData/@version}/{$structureData/local-name()}/{$propertyType}/{$conceptPath}">
                     <rdf:type rdf:resource="{$qb}ComponentSpecification"/>
