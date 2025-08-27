@@ -1,7 +1,7 @@
 #!/bin/bash
 
-rapper -g config.ttl -o rdfxml-abbrev > config.rdf
-rapper -g agencies.ttl -o rdfxml-abbrev > agencies.rdf
+# rapper -g config.ttl -o rdfxml-abbrev > config.rdf
+# rapper -g agencies.ttl -o rdfxml-abbrev > agencies.rdf
 
 #saxonb-xslt -t -tree:linked -ext:on -s ../data/WB.KeyFamily.xml -xsl generic.xsl xmlDocument=../data/WB.KeyFamily.xml pathToGenericStructure=../data/WB.KeyFamily.xml > ../data/WB.KeyFamily.rdf
 #saxonb-xslt -t -tree:linked -ext:on -s ../data/WB.sp.pop.totl.xml -xsl generic.xsl xmlDocument=../data/WB.sp.pop.totl.xml pathToGenericStructure=../data/WB.KeyFamily.xml > ../data/WB.sp.pop.totl.rdf
@@ -40,3 +40,20 @@ rapper -g agencies.ttl -o rdfxml-abbrev > agencies.rdf
 
 #saxonb-xslt -t -tree:linked -ext:on -s ../data/BFS.CH1_RN+HCL_HGDE_HIST+1.0.xml -xsl generic.xsl xmlDocument=../data/BFS.CH1_RN+HCL_HGDE_HIST+1.0.xml pathToGenericStructure=../data/BFS.CH1_RN+HCL_HGDE_HIST+1.0.xml > ../data/BFS.CH1_RN+HCL_HGDE_HIST+1.0.rdf
 
+# MacOS Run
+
+saxon -t -tree:linked -ext:on \
+  -s:../data/CEN18_EDU_001_DSD.xml \
+  -xsl:generic-sdmx21.xsl \
+  -o:../data/CEN18_EDU_001_DSD.rdf \
+  xmlDocument=../data/CEN18_EDU_001_DSD.xml \
+  pathToGenericStructure=../data/CEN18_EDU_001_DSD.xml
+  # debug=true
+
+# saxon -t -tree:linked -ext:on \
+#   -s:../data/EUROSTAT.tps00001.dsd.xml \
+#   -xsl:generic.xsl \
+#   -o:../data/EUROSTAT.tps00001.dsd-test.rdf \
+#   xmlDocument=../data/EUROSTAT.tps00001.dsd.xml \
+#   pathToGenericStructure=../data/EUROSTAT.tps00001.dsd.xml \
+#   debug=true
