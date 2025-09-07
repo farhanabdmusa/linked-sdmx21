@@ -796,16 +796,6 @@ XXX:
                     </xsl:variable>
             -->
 
-            <xsl:variable name="GenericAttributes">
-                <xsl:for-each select="generic:Attributes/generic:Value">
-                    <xsl:variable name="concept" select="@concept"/>
-
-                    <xsl:call-template name="ObsProperty">
-                        <xsl:with-param name="SeriesKeyConcept" select="$structureData/*[lower-case(name()) = lower-case($concept) and (@componentType = 'Attribute' or @propertyType = 'property')]"/>
-                        <xsl:with-param name="value" select="@value"/>
-                    </xsl:call-template>
-                </xsl:for-each>
-            </xsl:variable>
 
             <xsl:for-each select="*[local-name() = 'Obs']">
                 <xsl:variable name="ObsTime" select="replace(generic:Time, '\s+', '')"/>
@@ -884,7 +874,6 @@ XXX:
                         </xsl:call-template>
                     </xsl:for-each>
 
-                    <xsl:copy-of select="$GenericAttributes/*"/>
                 </rdf:Description>
             </xsl:for-each>
         </xsl:for-each>
