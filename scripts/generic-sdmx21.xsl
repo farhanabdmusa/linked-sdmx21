@@ -796,12 +796,6 @@ XXX:
                     </xsl:variable>
             -->
 
-            <xsl:variable name="omitComponents">
-                <xsl:for-each select="$ConfigOmitComponents/rdf:value">
-                    <xsl:value-of select="lower-case(.)"/><xsl:text> </xsl:text>
-                </xsl:for-each>
-            </xsl:variable>
-
             <xsl:variable name="GenericAttributes">
                 <xsl:for-each select="generic:Attributes/generic:Value">
                     <xsl:variable name="concept" select="@concept"/>
