@@ -711,7 +711,7 @@ XXX:
 
                 <xsl:variable name="PrimaryMeasureConceptRef" select="distinct-values($KeyFamily/structure:DataStructureComponents/*/structure:PrimaryMeasure/structure:ConceptIdentity/*[local-name()='Ref' and @package='conceptscheme']/@id)"/>
 
-<!-- XXX: This takes the first match - which is rather arbitrary and inaccurate, but probably good enough in published SDMX 2.0 -->
+                <!-- XXX: This takes the first match - which is rather arbitrary and inaccurate, but probably good enough in published SDMX 2.0 -->
                 <xsl:variable name="structureData" select="$StructureData/*[local-name() = $KeyFamilyRef and @agencyID = $KeyFamilyAgencyID][1]"/>
 
                 <xsl:variable name="datasetURI">
@@ -749,9 +749,9 @@ XXX:
                     </xsl:choose>
 
 
-    <!--
-    XXX: do something about @keyFamilyURI?
-    -->
+                <!--
+                XXX: do something about @keyFamilyURI?
+                -->
                 </rdf:Description>
 
                 <xsl:variable name="SDMXSchema">
@@ -761,11 +761,11 @@ XXX:
                 </xsl:variable>
 
                 <xsl:for-each select="generic:Group">
-    <!--
-    XXX: This is currently a flat version. Needs to be reviewed.
+                    <!--
+                    XXX: This is currently a flat version. Needs to be reviewed.
 
-    TODO: generic:Attributes - this is apparently repeated in the Series says the spec. In that case it is already being treated like a attachmentLevel at Observation.
-    -->
+                    TODO: generic:Attributes - this is apparently repeated in the Series says the spec. In that case it is already being treated like a attachmentLevel at Observation.
+                    -->
                     <xsl:call-template name="Series">
                         <xsl:with-param name="KeyFamily" select="$KeyFamily" tunnel="yes"/>
                         <xsl:with-param name="KeyFamilyRef" select="$KeyFamilyRef" tunnel="yes"/>
