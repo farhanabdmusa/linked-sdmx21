@@ -56,6 +56,8 @@
 
 <xsl:if test="$debug = 'true'">
 <xsl:message>
+===== START DEBUG =====
+
 <xsl:for-each select="$StructureData/*/*">
     <xsl:value-of select="local-name()"/>
     <xsl:for-each select="@*">
@@ -65,6 +67,7 @@
 <xsl:text>
 </xsl:text>
 </xsl:for-each>
+===== END DEBUG =====
 </xsl:message>
 </xsl:if>
 
@@ -108,22 +111,6 @@
                 <xsl:variable name="componentProperty" select="$C/@componentProperty"/>
 
                 <xsl:variable name="Concept" select="//*[local-name() = 'Concepts']//structure:Concept[@id = $conceptRef and (@agencyID = $conceptAgency or ../@agencyID = $conceptAgency) and (@version = $conceptVersion or ../@version = $conceptVersion or $conceptVersion = '1.0')]"/>
-<xsl:if test="$debug = 'true'">
-<xsl:message>
-componentType: <xsl:value-of select="$componentType"/>
-propertyType: <xsl:value-of select="$propertyType"/>
-conceptRef: <xsl:value-of select="$conceptRef"/>
-C: <xsl:value-of select="$C"/>
-conceptPath: <xsl:value-of select="$conceptPath"/>
-conceptURI: <xsl:value-of select="$conceptURI"/>
-conceptVersion: <xsl:value-of select="$conceptVersion"/>
-conceptScheme: <xsl:value-of select="$conceptScheme"/>
-conceptAgency: <xsl:value-of select="$conceptAgency"/>
-componentProperty: <xsl:value-of select="$componentProperty"/>
-Concept: <xsl:value-of select="$Concept"/>
-qb: <xsl:value-of select="$qb"/>
-</xsl:message>
-</xsl:if>
 
                 <rdf:Description rdf:about="{$structureData/@agencyBase}{$component}{$structureData/@version}/{$structureData/local-name()}/{$propertyType}/{$conceptPath}">
                     <rdf:type rdf:resource="{$qb}ComponentSpecification"/>
@@ -666,8 +653,8 @@ XXX:
         </xsl:variable>
 
         <xsl:variable name="datasetName">
-            <xsl:if test="*/*[local-name() = 'Header']/*[local-name() = 'Name']">
-                <xsl:value-of select="*/*[local-name() = 'Header']/*[local-name() = 'Name']"/>
+            <xsl:if test="$genericStructure/*[local-name() = 'DataStructures']/structure:DataStructure/common:Name">
+                <xsl:value-of select="normalize-space($genericStructure/*[local-name() = 'DataStructures']/structure:DataStructure/common:Name)"/>
             </xsl:if>
         </xsl:variable>
 
@@ -1201,9 +1188,6 @@ This is a one time retrieval but perhaps not necessary for the observations. Rev
 
             <xsl:variable name="structureURI" select="$structureData/@structureURI"/>
 
-<!--
-FIXME: $pathToGenericStructure should be replaced with an HTTP URI ??? Is this irrelevant now?
--->
             <xsl:if test="$useProvenance = 'true'">
                 <xsl:call-template name="provenance">
                     <xsl:with-param name="provUsedA" select="resolve-uri(tokenize(base-uri(), '/')[last()], $xmlDocumentBaseUri)"/>
