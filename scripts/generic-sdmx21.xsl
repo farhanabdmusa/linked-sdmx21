@@ -782,9 +782,10 @@ XXX:
             <xsl:variable name="ValuesWOFreq" select="$Values[lower-case(@concept) != 'freq']"/>
             <xsl:variable name="Group" select="$KeyFamily/structure:Components/structure:Group"/>
 
-            <xsl:variable name="SeriesKeyValuesURI" select="string-join($Values[lower-case(@concept) != 'freq']/normalize-space(@value), $uriDimensionSeparator)"/>
-            <xsl:variable name="DimensionValuesURI" select="string-join($Values/normalize-space(@value), $uriDimensionSeparator)"/>
+            <xsl:variable name="SeriesKeyValuesURI" select="string-join($ValuesWOFreq/normalize-space(@value), $uriDimensionSeparator)"/>
 
+            <xsl:variable name="DimensionValuesURI" select="string-join($Values/normalize-space(@value), $uriDimensionSeparator)"/>
+            
             <xsl:if test="$Group and count($ValuesWOFreq) = count($Group/structure:DimensionRef)">
                 <rdf:Description rdf:about="{$datasetURI}">
                     <qb:slice>
