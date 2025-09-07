@@ -800,12 +800,10 @@ XXX:
                 <xsl:for-each select="generic:Attributes/generic:Value">
                     <xsl:variable name="concept" select="@concept"/>
 
-                    <xsl:if test="not(contains($omitComponents, lower-case($concept)))">
-                        <xsl:call-template name="ObsProperty">
-                            <xsl:with-param name="SeriesKeyConcept" select="$structureData/*[lower-case(name()) = lower-case($concept) and (@componentType = 'Attribute' or @propertyType = 'property')]"/>
-                            <xsl:with-param name="value" select="@value"/>
-                        </xsl:call-template>
-                    </xsl:if>
+                    <xsl:call-template name="ObsProperty">
+                        <xsl:with-param name="SeriesKeyConcept" select="$structureData/*[lower-case(name()) = lower-case($concept) and (@componentType = 'Attribute' or @propertyType = 'property')]"/>
+                        <xsl:with-param name="value" select="@value"/>
+                    </xsl:call-template>
                 </xsl:for-each>
             </xsl:variable>
 
@@ -880,12 +878,10 @@ XXX:
                     <xsl:for-each select="generic:Attributes/generic:Value">
                         <xsl:variable name="concept" select="@concept"/>
 
-                        <xsl:if test="not(contains($omitComponents, lower-case($concept)))">
-                            <xsl:call-template name="ObsProperty">
-                                <xsl:with-param name="SeriesKeyConcept" select="$structureData/*[lower-case(name()) = lower-case($concept) and (@componentType = 'Attribute' or @propertyType = 'property')]"/>
-                                <xsl:with-param name="value" select="@value"/>
-                            </xsl:call-template>
-                        </xsl:if>
+                        <xsl:call-template name="ObsProperty">
+                            <xsl:with-param name="SeriesKeyConcept" select="$structureData/*[lower-case(name()) = lower-case($concept) and (@componentType = 'Attribute' or @propertyType = 'property')]"/>
+                            <xsl:with-param name="value" select="@value"/>
+                        </xsl:call-template>
                     </xsl:for-each>
 
                     <xsl:copy-of select="$GenericAttributes/*"/>
