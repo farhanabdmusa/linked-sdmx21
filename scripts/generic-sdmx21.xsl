@@ -780,45 +780,11 @@ XXX:
         <xsl:for-each select="*[local-name() = 'Obs']">
             <xsl:variable name="Values" select="*[local-name() = 'ObsKey']/*[local-name() = 'Value']"/>
             <xsl:variable name="ValuesWOFreq" select="$Values[lower-case(@concept) != 'freq']"/>
-            <xsl:variable name="Group" select="$KeyFamily/structure:Components/structure:Group"/>
 
             <xsl:variable name="SeriesKeyValuesURI" select="string-join($ValuesWOFreq/normalize-space(@value), $uriDimensionSeparator)"/>
 
             <xsl:variable name="DimensionValuesURI" select="string-join($Values/normalize-space(@value), $uriDimensionSeparator)"/>
-            
-            <xsl:if test="$Group and count($ValuesWOFreq) = count($Group/structure:DimensionRef)">
-                <rdf:Description rdf:about="{$datasetURI}">
-                    <qb:slice>
-                        <rdf:Description rdf:about="{$slice}{$KeyFamilyRef}{$uriThingSeparator}{$SeriesKeyValuesURI}">
-                            <rdf:type rdf:resource="{$qb}Slice"/>
-                            <qb:sliceStructure rdf:resource="{concat($slice, $KeyFamilyRef, $uriThingSeparator, $Group/@id)}"/>
 
-                            <xsl:for-each select="$ValuesWOFreq">
-                                <xsl:variable name="concept" select="@concept"/>
-                                <xsl:call-template name="ObsProperty">
-                                    <xsl:with-param name="SeriesKeyConcept" select="$structureData/*[lower-case(name()) = lower-case($concept) and (@componentType = 'Dimension' or @propertyType = 'property')]"/>
-                                    <xsl:with-param name="value" select="@value"/>
-                                </xsl:call-template>
-                            </xsl:for-each>
-
-                            <xsl:for-each select="generic:Obs">
-                                <xsl:variable name="ObsTime" select="replace(generic:Time, '\s+', '')"/>
-                                <xsl:variable name="ObsTimeURI">
-                                    <xsl:if test="$ObsTime">
-                                        <xsl:value-of select="$uriDimensionSeparator"/><xsl:value-of select="$ObsTime"/>
-                                    </xsl:if>
-                                </xsl:variable>
-
-                                <qb:observation>
-                                    <xsl:attribute name="rdf:resource">
-                                        <xsl:value-of select="$datasetURI"/><xsl:value-of select="$uriThingSeparator"/><xsl:value-of select="$DimensionValuesURI"/><xsl:value-of select="$ObsTimeURI"/>
-                                    </xsl:attribute>
-                                </qb:observation>
-                            </xsl:for-each>
-                        </rdf:Description>
-                    </qb:slice>
-                </rdf:Description>
-            </xsl:if>
             <!--
             TODO:
             "TextType provides for a set of language-specific alternates to be provided for any human-readable construct in the instance."
