@@ -701,11 +701,11 @@ XXX:
                     </xsl:choose>
                 </xsl:variable>
 
-                <xsl:variable name="KeyFamily" select="$genericStructure/*[local-name() = 'KeyFamilies']/structure:KeyFamily[@id = $KeyFamilyRef]"/>
+                <xsl:variable name="KeyFamily" select="$genericStructure/*[local-name() = 'DataStructures']/structure:DataStructure[@id = $KeyFamilyRef]"/>
 
-                <xsl:variable name="KeyFamilyAgencyID" select="$genericStructure/*[local-name() = 'KeyFamilies']/structure:KeyFamily[@id = $KeyFamilyRef]/@agencyID"/>
+                <xsl:variable name="KeyFamilyAgencyID" select="$genericStructure/*[local-name() = 'DataStructures']/structure:DataStructure[@id = $KeyFamilyRef]/@agencyID"/>
 
-                <xsl:variable name="concepts" select="$KeyFamily/structure:Components/*[@conceptRef]"/>
+                <xsl:variable name="concepts" select="$KeyFamily/structure:DataStructureComponents/*/*/structure:ConceptIdentity/*[local-name()='Ref' and @package='conceptscheme']"/>
 
                 <xsl:variable name="TimeDimensionConceptRef" select="distinct-values($KeyFamily/structure:Components/structure:TimeDimension/@conceptRef)"/>
 
