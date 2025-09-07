@@ -707,9 +707,9 @@ XXX:
 
                 <xsl:variable name="concepts" select="$KeyFamily/structure:DataStructureComponents/*/*/structure:ConceptIdentity/*[local-name()='Ref' and @package='conceptscheme']"/>
 
-                <xsl:variable name="TimeDimensionConceptRef" select="distinct-values($KeyFamily/structure:DataStructureComponents/*/*[local-name() = 'TimeDimension']/structure:ConceptIdentity/*[local-name()='Ref' and @package='conceptscheme'])"/>
+                <xsl:variable name="TimeDimensionConceptRef" select="distinct-values($KeyFamily/structure:DataStructureComponents/*/*[local-name() = 'TimeDimension']/structure:ConceptIdentity/*[local-name()='Ref' and @package='conceptscheme']/@id)"/>
 
-                <xsl:variable name="PrimaryMeasureConceptRef" select="distinct-values($KeyFamily/structure:Components/structure:PrimaryMeasure/@conceptRef)"/>
+                <xsl:variable name="PrimaryMeasureConceptRef" select="distinct-values($KeyFamily/structure:DataStructureComponents/*/structure:PrimaryMeasure/structure:ConceptIdentity/*[local-name()='Ref' and @package='conceptscheme']/@id)"/>
 
 <!-- XXX: This takes the first match - which is rather arbitrary and inaccurate, but probably good enough in published SDMX 2.0 -->
                 <xsl:variable name="structureData" select="$StructureData/*[local-name() = $KeyFamilyRef and @agencyID = $KeyFamilyAgencyID][1]"/>
