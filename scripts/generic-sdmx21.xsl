@@ -707,7 +707,7 @@ XXX:
 
                 <xsl:variable name="concepts" select="$KeyFamily/structure:DataStructureComponents/*/*/structure:ConceptIdentity/*[local-name()='Ref' and @package='conceptscheme']"/>
 
-                <xsl:variable name="TimeDimensionConceptRef" select="distinct-values($KeyFamily/structure:Components/structure:TimeDimension/@conceptRef)"/>
+                <xsl:variable name="TimeDimensionConceptRef" select="distinct-values($KeyFamily/structure:DataStructureComponents/*/*[local-name() = 'TimeDimension']/structure:ConceptIdentity/*[local-name()='Ref' and @package='conceptscheme'])"/>
 
                 <xsl:variable name="PrimaryMeasureConceptRef" select="distinct-values($KeyFamily/structure:Components/structure:PrimaryMeasure/@conceptRef)"/>
 
