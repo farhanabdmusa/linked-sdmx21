@@ -798,14 +798,7 @@ XXX:
 
 
             <xsl:for-each select="*[local-name() = 'Obs']">
-                <xsl:variable name="ObsTime" select="replace(generic:Time, '\s+', '')"/>
-                <xsl:variable name="ObsTimeURI">
-                    <xsl:if test="$ObsTime">
-                        <xsl:value-of select="$uriDimensionSeparator"/><xsl:value-of select="$ObsTime"/>
-                    </xsl:if>
-                </xsl:variable>
-
-                <rdf:Description rdf:about="{$datasetURI}{$uriThingSeparator}{$DimensionValuesURI}{$ObsTimeURI}">
+                <rdf:Description rdf:about="{$datasetURI}{$uriThingSeparator}{$DimensionValuesURI}">
                     <rdf:type rdf:resource="{$qb}Observation"/>
                     <qb:dataSet rdf:resource="{$datasetURI}"/>
 
@@ -816,32 +809,6 @@ XXX:
                             <xsl:with-param name="value" select="@value"/>
                         </xsl:call-template>
                     </xsl:for-each>
-
-                    <xsl:if test="$ObsTime != '' and $TimeDimensionConceptRef != ''">
-                        <xsl:variable name="SeriesKeyConcept" select="$structureData/*[lower-case(name()) = lower-case($TimeDimensionConceptRef) and (@componentType = 'TimeDimension' or @propertyType = 'property')]"/>
-
-                        <xsl:element name="{$SeriesKeyConcept/@propertyPrefix}:{$TimeDimensionConceptRef}" namespace="{$SeriesKeyConcept/@propertyNamespace}">
-
-                            <xsl:variable name="resourceRefPeriod" select="fn:getResourceRefPeriod($ObsTime)"/>
-
-                            <xsl:choose>
-                                <xsl:when test="$resourceRefPeriod != ''">
-                                    <xsl:attribute name="rdf:resource">
-                                        <xsl:value-of select="$resourceRefPeriod"/>
-                                    </xsl:attribute>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:variable name="datatype" select="$SeriesKeyConcept/@datatype"/>
-                                    <xsl:if test="$datatype != ''">
-                                        <xsl:call-template name="rdfDatatypeXSD">
-                                            <xsl:with-param name="type" select="$datatype"/>
-                                        </xsl:call-template>
-                                    </xsl:if>
-                                    <xsl:value-of select="$ObsTime"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:element>
-                    </xsl:if>
 
                     <xsl:for-each select="generic:ObsValue">
                         <xsl:variable name="SeriesKeyConcept" select="$structureData/*[lower-case(name()) = lower-case($PrimaryMeasureConceptRef) and (@componentType = 'PrimaryMeasure' or @propertyType = 'property')]"/>
