@@ -658,9 +658,10 @@ XXX:
             </xsl:if>
         </xsl:variable>
 
+        <xsl:variable name="structureUsage" select="*/*[local-name() = 'Header']/*[local-name()= 'Structure']/*[local-name() = 'StructureUsage']/*[local-name() = 'Ref']"/>
+
         <xsl:for-each select="*/*[local-name() = 'DataSet']">
-            <xsl:if test="*[local-name() = 'Series'] or */*[local-name() = 'Series'] or */*[local-name() = Group]/*[local-name() = 'Series']">
-<!-- FIXME: WTF did I just come up with every case combination for "datasetid"? -->
+            <xsl:if test="*[local-name() = 'Obs']">
                 <xsl:variable name="datasetID">
                     <xsl:choose>
                         <!-- from generic data -->
@@ -687,27 +688,18 @@ XXX:
                 </xsl:variable>
 
                 <xsl:variable name="KeyFamilyRef">
-                    <xsl:variable name="keyFamilyURI" select="@keyFamilyURI"/>
-
                     <xsl:choose>
-                        <xsl:when test="generic:KeyFamilyRef">
-                            <xsl:value-of select="generic:KeyFamilyRef"/>
+                        <xsl:when test="$structureUsage/@id">
+                            <xsl:value-of select="$structureUsage/@id"/>
                         </xsl:when>
-                        <xsl:when test="$keyFamilyURI = $genericStructure/*[local-name() = 'KeyFamilies']/structure:KeyFamily/@urn">
-                            <xsl:value-of select="$genericStructure/*[local-name() = 'KeyFamilies']/structure:KeyFamily[@urn = $keyFamilyURI]/@id"/>
-                        </xsl:when>
-<!--
-XXX: Fallback: KeyFamilyRef may not exist. Tries the DataSet id as the KeyFamily id, otherwise takes the first available key (which is last resort)
--->
-                        <xsl:when test="$genericStructure/*[local-name() = 'KeyFamilies']/structure:KeyFamily/@id = $datasetID">
-                            <xsl:value-of select="$datasetID"/>
-                        </xsl:when>
+                        <!--
+                        XXX: Fallback: KeyFamilyRef may not exist. Tries the DataSet id as the KeyFamily id, otherwise takes the first available key (which is last resort)
+                        -->
                         <xsl:otherwise>
-                            <xsl:value-of select="$genericStructure/*[local-name() = 'KeyFamilies']/structure:KeyFamily[1]/@id"/>
+                            <xsl:value-of select="$datasetID"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
-
 
                 <xsl:variable name="KeyFamily" select="$genericStructure/*[local-name() = 'KeyFamilies']/structure:KeyFamily[@id = $KeyFamilyRef]"/>
 
