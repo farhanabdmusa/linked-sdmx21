@@ -754,30 +754,6 @@ XXX:
                 -->
                 </rdf:Description>
 
-                <xsl:variable name="SDMXSchema">
-                    <xsl:if test="/*/local-name() = 'CompactData'">
-                        <xsl:text>Compact</xsl:text>
-                    </xsl:if>
-                </xsl:variable>
-
-                <xsl:for-each select="generic:Group">
-                    <!--
-                    XXX: This is currently a flat version. Needs to be reviewed.
-
-                    TODO: generic:Attributes - this is apparently repeated in the Series says the spec. In that case it is already being treated like a attachmentLevel at Observation.
-                    -->
-                    <xsl:call-template name="Series">
-                        <xsl:with-param name="KeyFamily" select="$KeyFamily" tunnel="yes"/>
-                        <xsl:with-param name="KeyFamilyRef" select="$KeyFamilyRef" tunnel="yes"/>
-                        <xsl:with-param name="KeyFamilyAgencyID" select="$KeyFamilyAgencyID" tunnel="yes"/>
-                        <xsl:with-param name="datasetURI" select="$datasetURI" tunnel="yes"/>
-                        <xsl:with-param name="structureData" select="$structureData" tunnel="yes"/>
-                        <xsl:with-param name="TimeDimensionConceptRef" select="$TimeDimensionConceptRef" tunnel="yes"/>
-                        <xsl:with-param name="PrimaryMeasureConceptRef" select="$PrimaryMeasureConceptRef" tunnel="yes"/>
-                        <xsl:with-param name="SDMXSchema" select="$SDMXSchema" tunnel="yes"/>
-                    </xsl:call-template>
-                </xsl:for-each>
-
                 <xsl:call-template name="Series">
                     <xsl:with-param name="KeyFamily" select="$KeyFamily" tunnel="yes"/>
                     <xsl:with-param name="KeyFamilyRef" select="$KeyFamilyRef" tunnel="yes"/>
