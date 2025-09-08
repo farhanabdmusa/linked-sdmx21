@@ -354,7 +354,7 @@ Check where to get ConceptScheme
     </xsl:template>
 
     <xsl:template name="CodeLists">
-        <xsl:for-each select="*[local-name() = 'CodeLists']/structure:CodeList">
+        <xsl:for-each select="*[local-name() = 'Structures']/*[local-name() = 'Codelists']/*[local-name() = 'Codelist']">
                 <xsl:variable name="id" select="@id"/>
 
                 <xsl:variable name="agencyBase" select="fn:getAgencyBase(@agencyID)"/>
@@ -363,10 +363,6 @@ Check where to get ConceptScheme
                 <xsl:variable name="codeListURI" select="concat($agencyBase, $code, $version, '/', $id)"/>
 
                 <xsl:if test="$useProvenance = 'true'">
-<xsl:message>
-$codeListURI OK
-entityID: <xsl:value-of select="$id"/>
-</xsl:message>
                     <xsl:call-template name="provenance">
                         <xsl:with-param name="provUsedA" select="resolve-uri(tokenize(base-uri(), '/')[last()], $xmlDocumentBaseUri)"/>
                         <xsl:with-param name="provGenerated" select="$codeListURI"/>
