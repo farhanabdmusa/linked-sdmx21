@@ -49,7 +49,7 @@
     <xsl:variable name="StructureData" select="fn:createStructureData()"/>
 
     <xsl:template match="/">
-        <rdf:RDF xml:base="{$agencyURI}">
+        <rdf:RDF xml:base="$agencyURI">
             <xsl:for-each select="$StructureData/*/*">
                 <xsl:namespace name="{@propertyPrefix}" select="@propertyNamespace"/>
             </xsl:for-each>
