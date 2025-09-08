@@ -47,13 +47,29 @@ saxon -t -tree:linked -ext:on \
   -xsl:generic-sdmx21.xsl \
   -o:../data/CEN18_EDU_001_DSD.rdf \
   xmlDocument=../data/CEN18_EDU_001_DSD.xml \
-  pathToGenericStructure=../data/CEN18_EDU_001_DSD.xml
-  # debug=true
+  pathToGenericStructure=../data/CEN18_EDU_001_DSD.xml \
+  debug=true
 
-# saxon -t -tree:linked -ext:on \
-#   -s:../data/EUROSTAT.tps00001.dsd.xml \
-#   -xsl:generic.xsl \
-#   -o:../data/EUROSTAT.tps00001.dsd-test.rdf \
-#   xmlDocument=../data/EUROSTAT.tps00001.dsd.xml \
-#   pathToGenericStructure=../data/EUROSTAT.tps00001.dsd.xml \
-#   debug=true
+saxon -t -tree:linked -ext:on \
+  -s:../data/CEN18_EDU_001.xml \
+  -xsl:generic-sdmx21.xsl \
+  -o:../data/CEN18_EDU_001.rdf \
+  xmlDocument=../data/CEN18_EDU_001.xml \
+  pathToGenericStructure=../data/CEN18_EDU_001_DSD.xml \
+  debug=true
+
+saxon -t -tree:linked -ext:on \
+  -s:../data/EUROSTAT.tps00001.dsd.xml \
+  -xsl:generic.xsl \
+  -o:../data/EUROSTAT.tps00001.dsd-test.rdf \
+  xmlDocument=../data/EUROSTAT.tps00001.dsd.xml \
+  pathToGenericStructure=../data/EUROSTAT.tps00001.dsd.xml \
+  debug=true
+
+saxon -t -tree:linked -ext:on \
+  -s:../data/EUROSTAT.tps00001.sdmx.generic.xml \
+  -xsl:generic.xsl \
+  -o:../data/EUROSTAT.tps00001.sdmx.generic-test.rdf \
+  xmlDocument=../data/EUROSTAT.tps00001.sdmx.generic.xml \
+  pathToGenericStructure=../data/EUROSTAT.tps00001.dsd.xml \
+  debug=true
