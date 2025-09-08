@@ -258,11 +258,11 @@ TODO:
 Check where to get ConceptScheme
 -->
     <xsl:template name="Concepts">
-        <xsl:for-each select="*[local-name() = 'Concepts']/structure:ConceptScheme">
+        <xsl:for-each select="*[local-name() = 'Structures']/*[local-name() = 'Concepts']/*[local-name() = 'ConceptScheme']">
             <xsl:call-template name="structureConceptScheme"/>
         </xsl:for-each>
 
-        <xsl:for-each select="*[local-name() = 'Concepts']/structure:Concept">
+        <xsl:for-each select="*[local-name() = 'Structures']/*[local-name() = 'Concepts']/*[local-name() = 'Concept']">
             <xsl:call-template name="structureConcept"/>
         </xsl:for-each>
     </xsl:template>
@@ -281,10 +281,10 @@ Check where to get ConceptScheme
         </xsl:if>
 
         <rdf:Description rdf:about="{$conceptSchemeURI}">
-<!--
-XXX:
-SDMX-ML actually differentiates ConceptScheme from CodeList. Add sdmx:ConceptScheme?
--->
+            <!--
+            XXX:
+            SDMX-ML actually differentiates ConceptScheme from CodeList. Add sdmx:ConceptScheme?
+            -->
             <rdf:type rdf:resource="{$skos}ConceptScheme"/>
 
             <xsl:apply-templates select="@uri"/>
@@ -309,9 +309,9 @@ SDMX-ML actually differentiates ConceptScheme from CodeList. Add sdmx:ConceptSch
     <xsl:template name="structureConcept">
         <xsl:param name="conceptSchemeURI"/>
 
-<!--
-XXX: Is it possible to have a Concept version that's different than the version than the ConceptScheme that it is in?
--->
+        <!--
+        XXX: Is it possible to have a Concept version that's different than the version than the ConceptScheme that it is in?
+        -->
         <xsl:variable name="version" select="fn:getVersion(@version)"/>
         <xsl:variable name="conceptURI">
             <xsl:choose>
@@ -344,16 +344,14 @@ XXX: Is it possible to have a Concept version that's different than the version 
 
             <xsl:apply-templates select="common:Description"/>
 
-<!--
-TODO:
-structure:textFormat
--->
+            <!--
+            TODO:
+            structure:textFormat
+            -->
 
             <xsl:apply-templates select="common:Annotations/common:Annotation"/>
         </rdf:Description>
     </xsl:template>
-
-
 
     <xsl:template name="CodeLists">
         <xsl:for-each select="*[local-name() = 'CodeLists']/structure:CodeList">
@@ -365,6 +363,10 @@ structure:textFormat
                 <xsl:variable name="codeListURI" select="concat($agencyBase, $code, $version, '/', $id)"/>
 
                 <xsl:if test="$useProvenance = 'true'">
+<xsl:message>
+$codeListURI OK
+entityID: <xsl:value-of select="$id"/>
+</xsl:message>
                     <xsl:call-template name="provenance">
                         <xsl:with-param name="provUsedA" select="resolve-uri(tokenize(base-uri(), '/')[last()], $xmlDocumentBaseUri)"/>
                         <xsl:with-param name="provGenerated" select="$codeListURI"/>
@@ -451,6 +453,10 @@ XXX: Difference between SDMX 2.0 and SDMX 2.1
             <xsl:variable name="hierarchicalCodeListURI" select="concat(fn:getAgencyBase($agency), $code, $version, '/', @id)"/>
 
             <xsl:if test="$useProvenance = 'true'">
+<xsl:message>
+$hierarchicalCodeListURI OK
+entityID: <xsl:value-of select="@id"/>
+</xsl:message>
                 <xsl:call-template name="provenance">
                     <xsl:with-param name="provUsedA" select="resolve-uri(tokenize(base-uri(), '/')[last()], $xmlDocumentBaseUri)"/>
                     <xsl:with-param name="provGenerated" select="$hierarchicalCodeListURI"/>
@@ -719,6 +725,10 @@ XXX:
                 </xsl:variable>
 
                 <xsl:if test="$useProvenance = 'true'">
+<xsl:message>
+$datasetURI OK
+entityID: <xsl:value-of select="$datasetID"/>
+</xsl:message>
                     <xsl:call-template name="provenance">
                         <xsl:with-param name="provUsedA" select="resolve-uri(tokenize(base-uri(), '/')[last()], $xmlDocumentBaseUri)"/>
                         <xsl:with-param name="provUsedB" select="resolve-uri(tokenize($pathToGenericStructure, '/')[last()], $xmlDocumentBaseUri)"/>
@@ -884,6 +894,10 @@ XXX:
             <xsl:variable name="structureURI" select="$structureData/@structureURI"/>
 
             <xsl:if test="$useProvenance = 'true'">
+<xsl:message>
+$structureURI OK
+entityID: <xsl:value-of select="$id"/>
+</xsl:message>
                 <xsl:call-template name="provenance">
                     <xsl:with-param name="provUsedA" select="resolve-uri(tokenize(base-uri(), '/')[last()], $xmlDocumentBaseUri)"/>
                     <xsl:with-param name="provGenerated" select="$structureURI"/>
