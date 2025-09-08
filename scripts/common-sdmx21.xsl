@@ -530,10 +530,10 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
         <rdf:RDF>
             <xsl:for-each select="$genericStructure/*[local-name() = 'DataStructures']/structure:DataStructure">
                 <xsl:variable name="KeyFamilyRef" select="@id"/>
-
+                
                 <xsl:variable name="concepts" select="structure:DataStructureComponents/*/*/structure:ConceptIdentity/*[local-name()='Ref' and @package='conceptscheme']"/>
 
-<xsl:if test="$debug = 'true'">
+<!-- <xsl:if test="$debug = 'true'">
 <xsl:message>Jumlah DataStructureComponents: 
 <xsl:value-of select="count(structure:DataStructureComponents)"/>
 </xsl:message>
@@ -554,7 +554,7 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
 </xsl:for-each>
 🚀 END LIST CONCEPT 🚀
 </xsl:message>
-</xsl:if>
+</xsl:if> -->
 
                 <xsl:element name="{$KeyFamilyRef}">
                     <xsl:variable name="agencyID" select="@agencyID"/>
@@ -710,7 +710,7 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
                             </xsl:attribute>
 
                             <xsl:attribute name="datatype">
-                                <xsl:value-of select="fn:getXSDType(structure:TextFormat/@textType)"/>
+                                <xsl:value-of select="fn:getXSDType(../../structure:LocalRepresentation/structure:TextFormat/@textType)"/>
                             </xsl:attribute>
                         </xsl:element>
                     </xsl:for-each>
