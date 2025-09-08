@@ -442,17 +442,13 @@ Check where to get ConceptScheme
 
 
     <xsl:template name="HierarchicalCodelists">
-        <xsl:for-each select="*[local-name() = 'HierarchicalCodelists']/structure:HierarchicalCodelist">
+        <xsl:for-each select="*[local-name() = 'Structures']/*[local-name() = 'HierarchicalCodelists']/*[local-name() = 'HierarchicalCodelist']">
             <xsl:variable name="HierarchicalCodelistID" select="@id"/>
             <xsl:variable name="version" select="fn:getVersion(@version)"/>
             <xsl:variable name="agencyID" select="@agencyID"/>
             <xsl:variable name="hierarchicalCodeListURI" select="concat(fn:getAgencyBase($agency), $code, $version, '/', @id)"/>
 
             <xsl:if test="$useProvenance = 'true'">
-<xsl:message>
-$hierarchicalCodeListURI OK
-entityID: <xsl:value-of select="@id"/>
-</xsl:message>
                 <xsl:call-template name="provenance">
                     <xsl:with-param name="provUsedA" select="resolve-uri(tokenize(base-uri(), '/')[last()], $xmlDocumentBaseUri)"/>
                     <xsl:with-param name="provGenerated" select="$hierarchicalCodeListURI"/>
