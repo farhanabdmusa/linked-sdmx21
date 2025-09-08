@@ -49,11 +49,6 @@
     <xsl:variable name="StructureData" select="fn:createStructureData()"/>
 
     <xsl:template match="/">
-        <rdf:RDF xml:base="$agencyURI">
-            <xsl:for-each select="$StructureData/*/*">
-                <xsl:namespace name="{@propertyPrefix}" select="@propertyNamespace"/>
-            </xsl:for-each>
-
 <xsl:if test="$debug = 'true'">
 <xsl:message>
 ===== START DEBUG =====
@@ -70,6 +65,10 @@
 ===== END DEBUG =====
 </xsl:message>
 </xsl:if>
+        <rdf:RDF xml:base="$agencyURI">
+            <xsl:for-each select="$StructureData/*/*">
+                <xsl:namespace name="{@propertyPrefix}" select="@propertyNamespace"/>
+            </xsl:for-each>
 
             <xsl:for-each select="*[local-name() = 'Structure'] 
         | *[local-name() = 'RegistryInterface']/*[local-name() = 'QueryStructureResponse']">
