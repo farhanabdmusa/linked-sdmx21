@@ -417,9 +417,9 @@ Check where to get ConceptScheme
 
                                 <skos:notation><xsl:value-of select="@value"/></skos:notation>
 
-<!--
-XXX: Difference between SDMX 2.0 and SDMX 2.1
--->
+                                <!--
+                                XXX: Difference between SDMX 2.0 and SDMX 2.1
+                                -->
                                 <xsl:choose>
                                     <xsl:when test="common:Name and common:Description">
                                         <xsl:apply-templates select="common:Name"/>
