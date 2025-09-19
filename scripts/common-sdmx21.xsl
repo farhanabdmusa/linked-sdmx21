@@ -224,14 +224,15 @@
         <xsl:param name="agency"/>
 
         <xsl:variable name="uri" select="fn:getAgencyURI($agency)"/>
-        <xsl:choose>
+        <xsl:value-of select="concat($uri, $component)"/>
+        <!-- <xsl:choose>
             <xsl:when test="$uri = '' or $uri = $agencyURI">
                 <xsl:value-of select="$component"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="concat($uri, $component)"/>
             </xsl:otherwise>
-        </xsl:choose>
+        </xsl:choose> -->
     </xsl:function>
 
     <xsl:function name="fn:normalizeSDMXCodeListID">
@@ -331,7 +332,7 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
 
 
     <xsl:template name="provenanceInit">
-        <rdf:Description rdf:about="{$creator}">
+        <rdf:Description rdf:about="{$agencyURI}{$creator}">
             <rdf:type rdf:resource="{$prov}Agent"/>
         </rdf:Description>
 
@@ -366,7 +367,7 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
         <xsl:variable name="now" select="format-dateTime(current-dateTime(), '[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]Z')"/>
         <xsl:variable name="provActivity" select="concat($provenance, 'activity', $uriThingSeparator, replace($now, '\D', ''))"/>
 
-        <rdf:Description rdf:about="{$provActivity}">
+        <rdf:Description rdf:about="{$agencyURI}{$provActivity}">
             <rdf:type rdf:resource="{$prov}Activity"/>
             <rdfs:label xml:lang="en"><xsl:value-of select="concat('Transformed ', $entityID, ' data')"/></rdfs:label>
 
@@ -415,7 +416,7 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
             </xsl:if>
 
             <prov:generated>
-                <rdf:Description rdf:about="{$provGenerated}">
+                <rdf:Description rdf:about="{$agencyURI}{$provGenerated}">
                     <rdf:type rdf:resource="{$prov}Entity"/>
                     <prov:wasAttributedTo rdf:resource="{$creator}"/>
                     <prov:generatedAtTime rdf:datatype="{$xsd}dateTime"><xsl:value-of select="$now"/></prov:generatedAtTime>
@@ -652,12 +653,12 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
 
                             <xsl:variable name="conceptPath" select="concat($conceptPathWOConceptRef, $uriThingSeparator, $conceptRef)"/>
                             <xsl:attribute name="conceptPath">
-                                <xsl:value-of select="$conceptPath"/>
+                                <xsl:value-of select="concat($agencyURI, $conceptPath)"/>
                             </xsl:attribute>
 
                             <xsl:variable name="conceptURI" select="concat(fn:getAgencyBase($conceptAgency), $concept, $conceptPath)"/>
                             <xsl:attribute name="conceptURI">
-                                <xsl:value-of select="$conceptURI"/>
+                                <xsl:value-of select="concat($agencyURI, $conceptURI)"/>
                             </xsl:attribute>
 
                             <xsl:variable name="propertyType" select="fn:getPropertyType($componentType)"/>
@@ -706,7 +707,7 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
                                 <xsl:value-of select="concat($componentBase, '/', $conceptPath)"/>
                             </xsl:variable>
                             <xsl:attribute name="componentProperty">
-                                <xsl:value-of select="$componentProperty"/>
+                                <xsl:value-of select="concat($agencyURI, $componentProperty)"/>
                             </xsl:attribute>
 
                             <xsl:attribute name="datatype">

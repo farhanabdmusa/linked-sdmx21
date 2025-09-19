@@ -65,7 +65,10 @@
 ===== END DEBUG =====
 </xsl:message>
 </xsl:if>
-        <rdf:RDF xml:base="$agencyURI">
+        <rdf:RDF>
+            <xsl:attribute name="xml:base">
+                <xsl:value-of select="$agencyURI"/>
+            </xsl:attribute>
             <xsl:for-each select="$StructureData/*/*">
                 <xsl:namespace name="{@propertyPrefix}" select="@propertyNamespace"/>
             </xsl:for-each>
@@ -729,7 +732,7 @@ entityID: <xsl:value-of select="$datasetID"/>
                     </xsl:call-template>
                 </xsl:if>
 
-                <rdf:Description rdf:about="{$datasetURI}">
+                <rdf:Description rdf:about="{$agencyURI}{$datasetURI}">
                     <rdf:type rdf:resource="{$qb}DataSet"/>
 
                     <qb:structure rdf:resource="{$structureData/@structureURI}"/>
@@ -797,9 +800,9 @@ entityID: <xsl:value-of select="$datasetID"/>
                     </xsl:variable>
             -->
 
-            <rdf:Description rdf:about="{$datasetURI}{$uriThingSeparator}{$DimensionValuesURI}">
+            <rdf:Description rdf:about="{$agencyURI}{$datasetURI}{$uriThingSeparator}{$DimensionValuesURI}">
                 <rdf:type rdf:resource="{$qb}Observation"/>
-                <qb:dataSet rdf:resource="{$datasetURI}"/>
+                <qb:dataSet rdf:resource="{$agencyURI}{$datasetURI}"/>
 
                 <xsl:for-each select="$Values">
                     <xsl:variable name="concept" select="@id"/>
