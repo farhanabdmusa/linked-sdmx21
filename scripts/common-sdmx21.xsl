@@ -707,7 +707,7 @@ TODO: Timespan, Count, InclusiveValueRange, ExclusiveValueRange, Incremental, Ob
                                 <xsl:value-of select="concat($componentBase, '/', $conceptPath)"/>
                             </xsl:variable>
                             <xsl:attribute name="componentProperty">
-                                <xsl:value-of select="concat($agencyURI, $componentProperty)"/>
+                                <xsl:value-of select="$componentProperty"/>
                             </xsl:attribute>
 
                             <xsl:attribute name="datatype">
