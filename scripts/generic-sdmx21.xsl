@@ -398,7 +398,7 @@ Check where to get ConceptScheme
                     <xsl:apply-templates select="common:Name"/>
 
                     <xsl:for-each select="structure:Code">
-                        <xsl:variable name="codeURI" select="concat($codeListURI, $uriThingSeparator, @value)"/>
+                        <xsl:variable name="codeURI" select="concat($codeListURI, $uriThingSeparator, @id)"/>
 
                         <skos:hasTopConcept>
                             <rdf:Description rdf:about="{$codeURI}">
