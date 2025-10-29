@@ -114,7 +114,7 @@
 
                 <xsl:variable name="Concept" select="//*[local-name() = 'Concepts']//structure:Concept[@id = $conceptRef and (@agencyID = $conceptAgency or ../@agencyID = $conceptAgency) and (@version = $conceptVersion or ../@version = $conceptVersion or $conceptVersion = '1.0')]"/>
 
-                <rdf:Description rdf:about="{$structureData/@agencyBase}{$component}{$structureData/@version}/{$structureData/local-name()}/{$propertyType}/{$conceptPath}">
+                <rdf:Description rdf:about="{$conceptPath}">
                     <rdf:type rdf:resource="{$qb}ComponentSpecification"/>
                     <qb:componentProperty rdf:resource="{$componentProperty}"/>
 
