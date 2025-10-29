@@ -408,7 +408,7 @@ Check where to get ConceptScheme
                                 <skos:topConceptOf rdf:resource="{$codeListURI}"/>
                                 <skos:inScheme rdf:resource="{$codeListURI}"/>
 
-                                <xsl:apply-templates select="@urn"/>
+                                <xsl:apply-templates select="@urn"/> <!-- TODO CHECK-->
 
                                 <xsl:if test="@parentCode != ''">
                                     <xkos:isPartOf>
