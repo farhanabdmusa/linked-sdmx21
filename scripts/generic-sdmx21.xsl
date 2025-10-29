@@ -900,7 +900,7 @@ entityID: <xsl:value-of select="$id"/>
                 </xsl:call-template>
             </xsl:if>
 
-            <rdf:Description rdf:about="{$structureURI}">
+            <rdf:Description rdf:about="{$agencyURI}{$structureURI}">
                 <rdf:type rdf:resource="{$sdmx}DataStructureDefinition"/>
                 <rdf:type rdf:resource="{$qb}DataStructureDefinition"/>
 
