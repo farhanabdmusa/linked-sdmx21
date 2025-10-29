@@ -418,13 +418,13 @@ Check where to get ConceptScheme
                                     </xkos:isPartOf>
                                 </xsl:if>
 
-                                <skos:notation><xsl:value-of select="@value"/></skos:notation>
+                                <skos:notation><xsl:value-of select="@id"/></skos:notation>
 
                                 <!--
                                 XXX: Difference between SDMX 2.0 and SDMX 2.1
                                 -->
                                 <xsl:choose>
-                                    <xsl:when test="common:Name and common:Description">
+                                    <xsl:when test="common:Name or common:Description">
                                         <xsl:apply-templates select="common:Name"/>
                                         <xsl:apply-templates select="common:Description"/>
                                     </xsl:when>
